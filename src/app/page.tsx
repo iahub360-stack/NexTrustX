@@ -15,13 +15,17 @@ import {
   ArrowRight,
   Shield,
   Zap,
-  Clock
+  Clock,
+  BarChart3
 } from 'lucide-react';
 import { fetchCryptoPrices, formatPrice, formatChange, CryptoPrice } from '@/lib/crypto';
+import { CryptoPriceCard } from '@/components/crypto/CryptoPriceCard';
+import { ServicesSection } from '@/components/services/ServicesSection';
 
 export default function Home() {
   const [prices, setPrices] = useState<CryptoPrice[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedCrypto, setExpandedCrypto] = useState<string | null>(null);
 
   useEffect(() => {
     const loadPrices = async () => {
@@ -47,6 +51,10 @@ export default function Home() {
     BTC: <Bitcoin className="h-6 w-6 text-orange-500" />,
     ETH: <CircleDollarSign className="h-6 w-6 text-blue-500" />,
     USDT: <DollarSign className="h-6 w-6 text-green-500" />
+  };
+
+  const handleExpandCrypto = (symbol: string) => {
+    setExpandedCrypto(expandedCrypto === symbol ? null : symbol);
   };
 
   if (loading) {
@@ -140,132 +148,44 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="glass-strong rounded-xl p-6"
           >
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">Cotações em Tempo Real</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex items-center justify-center mb-6">
+              <BarChart3 className="h-6 w-6 text-neon-green mr-2" />
+              <h2 className="text-2xl font-bold text-white">Cotações em Tempo Real</h2>
+              <Badge variant="outline" className="ml-3 text-neon-green border-neon-green">
+                TradingView Powered
+              </Badge>
+            </div>
+            
+            {/* Cards com Widgets TradingView */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {prices.map((crypto, index) => (
-                <motion.div
+                <CryptoPriceCard
                   key={crypto.symbol}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 1 + index * 0.2 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="card-hover glass border-white/10"
-                >
-                  <Card className="h-full border-0 bg-transparent">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-gray-400">
-                        {crypto.name}/BRL
-                      </CardTitle>
-                      {cryptoIcons[crypto.symbol as keyof typeof cryptoIcons]}
-                    </CardHeader>
-                    <CardContent>
-                      <motion.div 
-                        key={crypto.price}
-                        initial={{ scale: 0.8 }}
-                        animate={{ scale: 1 }}
-                        className="text-2xl font-bold text-white"
-                      >
-                        {formatPrice(crypto.price)}
-                      </motion.div>
-                      <div className={`flex items-center space-x-1 text-sm ${
-                        crypto.change24h >= 0 ? 'text-neon-green' : 'text-red-500'
-                      }`}>
-                        {crypto.change24h >= 0 ? (
-                          <TrendingUp className="h-4 w-4" />
-                        ) : (
-                          <TrendingDown className="h-4 w-4" />
-                        )}
-                        <span>{formatChange(crypto.change24h)}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                  crypto={crypto}
+                  index={index}
+                  onExpand={handleExpandCrypto}
+                />
               ))}
             </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Features Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="text-3xl font-bold text-white text-center mb-12"
-          >
-            Por que escolher a NexTrustX?
-          </motion.h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Shield className="h-12 w-12 text-neon-green mx-auto mb-4" />,
-                title: "Sem KYC",
-                description: "Transações 100% privadas. Sem necessidade de enviar documentos ou passar por burocracia."
-              },
-              {
-                icon: <Zap className="h-12 w-12 text-neon-cyan mx-auto mb-4" />,
-                title: "Instantâneo",
-                description: "Pagamentos via PIX em segundos. Criptomoedas enviadas assim que o pagamento é confirmado."
-              },
-              {
-                icon: <Clock className="h-12 w-12 text-primary mx-auto mb-4" />,
-                title: "24/7",
-                description: "Atendimento e operações disponíveis a qualquer hora. Suporte via WhatsApp e Telegram."
-              }
-            ].map((feature, index) => (
+            {/* Indicador de Expansão */}
+            {expandedCrypto && (
               <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.4 + index * 0.2 }}
-                whileHover={{ scale: 1.05, y: -5 }}
+                className="mt-4 text-center"
               >
-                <Card className="card-hover glass border-white/10 h-full">
-                  <CardContent className="p-6 text-center">
-                    {feature.icon}
-                    <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                    <p className="text-gray-400">{feature.description}</p>
-                  </CardContent>
-                </Card>
+                <p className="text-sm text-gray-400">
+                  Clique em "Visão Geral" para ver estatísticas ou "Gráfico" para análise completa
+                </p>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2 }}
-            className="glass-strong rounded-xl p-8"
-          >
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Pronto para começar?
-            </h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Junte-se a milhares de usuários que já confiam na NexTrustX para suas operações P2P.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/comprar">
-                <Button size="lg" className="btn-neon bg-neon-green text-black hover:bg-green-400 font-semibold">
-                  Comprar Agora
-                </Button>
-              </Link>
-              <Link href="/contato">
-                <Button size="lg" variant="outline" className="btn-neon border-white text-white hover:bg-white hover:text-black">
-                  Falar com Suporte
-                </Button>
-              </Link>
-            </div>
+            )}
           </motion.div>
         </div>
       </section>
+
+      {/* Services Section - Substituindo CTA */}
+      <ServicesSection />
     </div>
   );
 }

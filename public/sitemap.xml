@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://nextrustx.org/</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://nextrustx.org/"/>
+  </url>
+  
+  <url>
+    <loc>https://nextrustx.org/comprar</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://nextrustx.org/comprar"/>
+  </url>
+  
+  <url>
+    <loc>https://nextrustx.org/vender</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://nextrustx.org/vender"/>
+  </url>
+  
+  <url>
+    <loc>https://nextrustx.org/privacidade</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://nextrustx.org/privacidade"/>
+  </url>
+  
+  <url>
+    <loc>https://nextrustx.org/contato</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="pt-br" href="https://nextrustx.org/contato"/>
+  </url>
+  
+</urlset>

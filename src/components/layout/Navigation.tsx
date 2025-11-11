@@ -14,7 +14,6 @@ export function Navigation() {
     { href: '/vender', label: 'Vender Cripto' },
     { href: '/privacidade', label: 'Privacidade' },
     { href: '/contato', label: 'Contato' },
-    { href: '/demo', label: 'Demo Chat' },
   ];
 
   return (
