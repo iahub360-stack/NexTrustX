@@ -103,8 +103,8 @@ export default function VenderPage() {
     if (cryptoAmount && currentCrypto) {
       const amount = parseFloat(cryptoAmount);
       if (!isNaN(amount)) {
-        // Subtrai 10% de taxa sobre o preço real
-        const priceWithFee = currentCrypto.price * 0.90;
+        // Subtrai 17.5% de taxa sobre o preço real
+        const priceWithFee = currentCrypto.price * 0.825;
         const brlAmount = amount * priceWithFee;
         setBrlAmount(brlAmount.toFixed(2));
       }
@@ -204,14 +204,14 @@ export default function VenderPage() {
                     <Button
                       variant={usdtNetwork === 'TRC20' ? 'default' : 'outline'}
                       onClick={() => setUsdtNetwork('TRC20')}
-                      className={`flex-1 ${usdtNetwork === 'TRC20' ? 'bg-neon-green text-black' : 'glass border-white/10 text-white'}`}
+                      className={`flex-1 ${usdtNetwork === 'TRC20' ? 'btn-green-enhanced' : 'glass border-white/10 text-white'}`}
                     >
                       TRC20 (Tron)
                     </Button>
                     <Button
                       variant={usdtNetwork === 'ERC20' ? 'default' : 'outline'}
                       onClick={() => setUsdtNetwork('ERC20')}
-                      className={`flex-1 ${usdtNetwork === 'ERC20' ? 'bg-neon-cyan text-black' : 'glass border-white/10 text-white'}`}
+                      className={`flex-1 ${usdtNetwork === 'ERC20' ? 'btn-cyan-enhanced' : 'glass border-white/10 text-white'}`}
                     >
                       ERC20 (Ethereum)
                     </Button>
@@ -269,7 +269,7 @@ export default function VenderPage() {
                 <Button 
                   onClick={handleSell}
                   disabled={!cryptoAmount || !pixAddress || parseFloat(cryptoAmount) <= 0}
-                  className="btn-neon bg-neon-cyan text-black hover:bg-cyan-400 w-full font-semibold"
+                  className="btn-cyan-enhanced w-full font-semibold"
                 >
                   Vender Agora
                 </Button>
@@ -320,7 +320,7 @@ export default function VenderPage() {
                               size="sm"
                               variant="outline"
                               onClick={copyToClipboard}
-                              className="btn-neon border-neon-green text-neon-green"
+                              className="btn-green-enhanced"
                             >
                               {copied ? <CheckCircle className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                             </Button>

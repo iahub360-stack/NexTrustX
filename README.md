@@ -1,141 +1,164 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# NexTrustX - Plataforma de Criptomoedas
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+Plataforma moderna e segura para compra e venda de criptomoedas via PIX, com serviços personalizados e atendimento especializado.
 
-## ✨ Technology Stack
+## 🚀 Melhorias Implementadas
 
-This scaffold provides a robust foundation built with:
+### ✅ Serviços Personalizados Aprimorados
+- **Expansão de Cards**: Os usuários agora podem expandir cada serviço para ver informações detalhadas sem sair da página principal
+- **Informações Completas**: Cada serviço expandido exibe:
+  - Descrição completa do serviço
+  - Benefícios exclusivos
+  - Preços transparentes
+  - Prazo de entrega
+- **Contato Direto**: Botões de WhatsApp e Telegram em cada serviço expandido para atendimento personalizado
 
-### 🎯 Core Framework
-- **⚡ Next.js 15** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
+### ✅ Sistema de Pagamento PIX Revolucionado
+- **Redirecionamento Automático**: Ao confirmar compra, o usuário é redirecionado para a página de pagamento externa
+- **URL Dinâmica**: Geração automática do link de pagamento: `https://pix.nextrustx.com.br/pagar?projeto=NexTrustX&valor=XXX`
+- **Confirmação de Pagamento**: Sistema intuitivo onde o usuário confirma quando o pagamento foi realizado
+- **Envio Automático**: Após confirmação, envio de informações detalhadas da operação para WhatsApp/Telegram
 
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
+### ✅ Preços Atualizados dos Serviços
+- **Cartões Virtuais**: Taxa única R$ 100 | Recarga: 3%
+- **Crypto em Euro**: Taxa de negociação e Mínimo: Valores a negociar
+- **Câmbio Fiat**: Taxa de negociação e Mínimo: Valores a negociar
+- **Escrow Services**: Taxa: 3% do valor | Mínimo: R$ 1.000 | Sem máximo
+- **Compra de Veículos**: Preços a negociar
 
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
+### ✅ Taxas Atualizadas
+- **Compra de Cripto**: Taxa de 17.5% aplicada sobre o preço real
+- **Venda de Cripto**: Taxa de 17.5% aplicada sobre o preço real
+- **Valor Mínimo**: R$ 10 para compra (reduzido de R$ 50)
+- **Cálculo Transparente**: Taxa aplicada de forma clara no cálculo
 
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Axios** - Promise-based HTTP client
+### ✅ Interface Visual Aprimorada
+- **Botões de Alta Visibilidade**: Removido sombreamento excessivo com novos estilos:
+  - `btn-green-enhanced`: Gradientes verdes com brilho neon
+  - `btn-cyan-enhanced`: Gradientes ciano com efeitos hover
+  - Sombras aprimoradas e transições suaves
+- **Design Responsivo**: Interface adaptada para todos os dispositivos
+- **Animações Fluidas**: Transições suaves com Framer Motion
 
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation Node.js and TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
+### ✅ Atendimento Multilíngue
+- **Suporte Completo**: Atendimento personalizado em português, francês, inglês e espanhol
+- **Contato Direto**: WhatsApp e Telegram disponíveis 24/7
 
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
+## 🛠️ Tecnologias Utilizadas
 
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
+- **Framework**: Next.js 15 com App Router
+- **Linguagem**: TypeScript 5
+- **Styling**: Tailwind CSS 4
+- **UI Components**: shadcn/ui (New York style)
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
+- **Database**: Prisma ORM com SQLite
+- **State Management**: Zustand
+- **Real-time**: Socket.io
 
-## 🎯 Why This Scaffold?
-
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
-
-## 🚀 Quick Start
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
-
-## 🤖 Powered by Z.ai
-
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
-
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
-
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
-
-## 📁 Project Structure
+## 📁 Estrutura do Projeto
 
 ```
 src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
+├── app/
+│   ├── page.tsx                 # Página principal
+│   ├── comprar/                 # Página de compra
+│   ├── vender/                  # Página de venda
+│   ├── contato/                 # Página de contato
+│   ├── privacidade/             # Política de privacidade
+│   └── api/                     # APIs do backend
+├── components/
+│   ├── services/                # Componentes de serviços
+│   ├── crypto/                  # Componentes de cripto
+│   ├── transaction/             # Componentes de transação
+│   ├── chat/                    # Widget de chat
+│   └── ui/                      # Componentes UI base
+├── lib/
+│   ├── crypto.ts                # Funções de cripto
+│   ├── transactions.ts         # Lógica de transações
+│   ├── db.ts                    # Configuração do banco
+│   └── socket.ts                # Configuração WebSocket
 ```
 
-## 🎨 Available Features & Components
+## 🚀 Funcionalidades Principais
 
-This scaffold includes a comprehensive set of modern web development tools:
+### 💱 Compra de Criptomoedas
+- Suporte para BTC, ETH, USDT (TRC20)
+- Cotações em tempo real via TradingView
+- Pagamento via PIX com integração externa
+- Processo simplificado de confirmação
 
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
+### 🛡️ Serviços Personalizados
+- Cartões de Crédito Virtuais (R$ 100 taxa única, 3% recarga)
+- Compra e Venda Crypto em Euro (valores a negociar)
+- Câmbio de Moedas Fiat (valores a negociar)
+- Wallets Seguras e Confidenciais
+- Serviços de Escrow (3% do valor, mínimo R$ 1.000)
+- Compra de Imóveis e Veículos (preços a negociar)
 
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
+### 📊 Recursos Adicionais
+- Preços em tempo real
+- Widgets TradingView
+- Sistema de transações
+- Chat de suporte
+- Notificações toast
 
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
+## 🔧 Instalação e Execução
 
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Axios + TanStack Query
-- **State Management**: Simple and scalable with Zustand
+1. **Instalar dependências**:
+```bash
+npm install
+```
 
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
+2. **Configurar banco de dados**:
+```bash
+npm run db:push
+```
 
-## 🤝 Get Started with Z.ai
+3. **Iniciar servidor de desenvolvimento**:
+```bash
+npm run dev
+```
 
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+4. **Verificar qualidade do código**:
+```bash
+npm run lint
+```
+
+## 🌐 URLs de Desenvolvimento
+
+- **Aplicação**: http://localhost:3000
+- **API de Preços**: http://localhost:3000/api/prices
+- **API de Saúde**: http://localhost:3000/api/health
+
+## 📱 Contato e Suporte
+
+- **WhatsApp**: +55 16 98814-2848
+- **Telegram**: @NexTrustX
+- **Email**: suporte@nextrustx.com.br
+- **Idiomas**: Português, Francês, Inglês, Espanhol
+
+## 🔐 Segurança
+
+- Encriptação AES-256
+- Autenticação biométrica
+- Backup criptografado
+- Transações privadas
+- Proteção contra ataques
+
+## 📈 Futuras Implementações
+
+- [ ] Integração com mais exchanges
+- [ ] Aplicativo mobile nativo
+- [ ] API pública para desenvolvedores
+- [ ] Sistema de staking
+- [ ] Carteira DeFi integrada
+- [ ] Suporte para mais criptomoedas
+
+## 📄 Licença
+
+Este projeto é propriedade da NexTrustX e está protegido por direitos autorais.
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+**NexTrustX** - Sua ponte para o futuro das finanças digitais

@@ -124,13 +124,13 @@ export default function Home() {
               className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
             >
               <Link href="/comprar">
-                <Button size="lg" className="btn-neon bg-neon-green text-black hover:bg-green-400 font-semibold text-lg px-8 py-4">
+                <Button size="lg" className="btn-green-enhanced font-semibold text-lg px-8 py-4">
                   Comprar Cripto
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link href="/vender">
-                <Button size="lg" variant="outline" className="btn-neon border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black font-semibold text-lg px-8 py-4">
+                <Button size="lg" variant="outline" className="btn-cyan-enhanced font-semibold text-lg px-8 py-4">
                   Vender Cripto
                 </Button>
               </Link>

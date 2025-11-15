@@ -124,6 +124,9 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    /* Better touch handling */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   
   /* Allow text selection for inputs and specific elements */
@@ -144,12 +147,20 @@
     /* Safe area insets for mobile */
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
+    /* Better mobile performance */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   
   /* Viewport height fix for mobile browsers */
   html, body {
     height: 100vh;
     height: -webkit-fill-available;
+    /* Prevent zoom on orientation change */
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   
   /* Hide scrollbar on mobile for cleaner look */
@@ -261,6 +272,71 @@
   left: 100%;
 }
 
+/* Enhanced button styles for better visibility */
+.btn-neon-enhanced {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(134, 239, 172, 0.4);
+  border: 2px solid #86efac;
+}
+
+.btn-neon-enhanced:hover {
+  box-shadow: 0 6px 25px rgba(134, 239, 172, 0.6);
+  transform: translateY(-2px);
+  border-color: #86efac;
+  background-color: #86efac !important;
+}
+
+.btn-neon-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-neon-enhanced:hover::before {
+  left: 100%;
+}
+
+/* Enhanced green button */
+.btn-green-enhanced {
+  background: linear-gradient(135deg, #86efac 0%, #4ade80 100%) !important;
+  color: #000000 !important;
+  border: 2px solid #86efac;
+  box-shadow: 0 4px 15px rgba(134, 239, 172, 0.4);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-green-enhanced:hover {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%) !important;
+  box-shadow: 0 6px 25px rgba(134, 239, 172, 0.6);
+  transform: translateY(-2px);
+  border-color: #4ade80;
+}
+
+/* Enhanced cyan button */
+.btn-cyan-enhanced {
+  background: linear-gradient(135deg, #67e8f9 0%, #06b6d4 100%) !important;
+  color: #000000 !important;
+  border: 2px solid #67e8f9;
+  box-shadow: 0 4px 15px rgba(103, 232, 249, 0.4);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-cyan-enhanced:hover {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+  box-shadow: 0 6px 25px rgba(103, 232, 249, 0.6);
+  transform: translateY(-2px);
+  border-color: #06b6d4;
+}
+
 /* Price ticker animation */
 .ticker {
   animation: scroll 30s linear infinite;
@@ -338,13 +414,10 @@
 /* Mobile-specific optimizations */
 @media (max-width: 768px) {
   /* Better touch targets */
-  .btn-neon, button, a {
+  .btn-neon, button, a, input, textarea, select {
     min-height: 44px;
     min-width: 44px;
-  }
-  
-  /* Prevent zoom on input focus */
-  input, textarea, select {
+    /* Prevent zoom on input focus */
     font-size: 16px !important;
   }
   
@@ -352,6 +425,7 @@
   .glass-strong {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    padding: 0.75rem;
   }
   
   /* Mobile card spacing */
@@ -363,12 +437,13 @@
   /* Mobile TradingView widget adjustments */
   .tradingview-widget-container {
     min-height: 120px;
+    overflow: hidden;
   }
   
   /* Mobile text sizing */
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.25rem; }
+  h1 { font-size: 1.75rem; line-height: 1.2; }
+  h2 { font-size: 1.5rem; line-height: 1.3; }
+  h3 { font-size: 1.25rem; line-height: 1.4; }
   
   /* Mobile padding adjustments */
   .glass-strong {
@@ -377,7 +452,115 @@
   
   /* Mobile grid adjustments */
   .grid-cols-1 {
+    gap: 0.75rem;
+  }
+  
+  .grid-cols-1.lg\:grid-cols-2 {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  /* Mobile form improvements */
+  .glass.border-white\/10 {
+    border-width: 1px;
+  }
+  
+  /* Mobile button improvements */
+  .btn-green-enhanced,
+  .btn-cyan-enhanced {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    min-height: 48px;
+    border-radius: 0.5rem;
+  }
+  
+  /* Mobile input improvements */
+  input, textarea, select {
+    padding: 0.75rem;
+    font-size: 16px;
+    border-radius: 0.5rem;
+    min-height: 48px;
+  }
+  
+  /* Mobile price card improvements */
+  .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  /* Mobile service cards */
+  .glass-strong.border-white\/10 {
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Mobile footer adjustments */
+  footer {
+    padding: 1rem 0.75rem;
+  }
+  
+  /* Mobile chat widget */
+  .chat-widget {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Better scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Mobile animations */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .grid-cols-1.lg\:grid-cols-2 {
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
+  }
+  
+  .glass-strong {
+    padding: 1.25rem;
+  }
+  
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+}
+
+/* Large mobile optimizations */
+@media (max-width: 480px) {
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.125rem; }
+  
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+  
+  .btn-green-enhanced,
+  .btn-cyan-enhanced {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .glass-strong {
+    padding: 0.625rem;
+  }
+  
+  .grid-cols-1 {
+    gap: 0.5rem;
   }
 }
 

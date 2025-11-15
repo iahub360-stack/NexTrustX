@@ -38,6 +38,7 @@ export default function ComprarPage() {
   const [walletAddress, setWalletAddress] = useState('');
   const [transactionStatus, setTransactionStatus] = useState<'idle' | 'pending' | 'confirmed'>('idle');
   const [copied, setCopied] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [cryptoPrices, setCryptoPrices] = useState<CryptoPrice[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -91,8 +92,8 @@ export default function ComprarPage() {
     if (brlAmount && currentCrypto) {
       const amount = parseFloat(brlAmount);
       if (!isNaN(amount)) {
-        // Adiciona 10% de taxa sobre o preço real
-        const priceWithFee = currentCrypto.price * 1.10;
+        // Adiciona 17.5% de taxa sobre o preço real
+        const priceWithFee = currentCrypto.price * 1.175;
         const cryptoAmount = amount / priceWithFee;
         setCryptoAmount(cryptoAmount.toFixed(8));
       }
@@ -104,6 +105,9 @@ export default function ComprarPage() {
   const handleBuy = () => {
     if (brlAmount && currentCrypto) {
       setTransactionStatus('pending');
+      // Redirecionar para página de pagamento externa
+      const paymentUrl = `https://pix.nextrustx.com.br/pagar?projeto=NexTrustX&valor=${brlAmount}`;
+      window.open(paymentUrl, '_blank');
     }
   };
 
@@ -113,23 +117,35 @@ export default function ComprarPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const generateWhatsAppMessage = () => {
-    const amount = parseFloat(brlAmount) || 0;
-    const crypto = parseFloat(cryptoAmount) || 0;
-    return `Pagamento realizado de ${formatPrice(amount)} e montante de ${crypto.toFixed(8)} ${selectedCrypto} a ser transferido para "${walletAddress}"`;
+  const handlePaymentCompleted = () => {
+    setPaymentCompleted(true);
+    setTransactionStatus('confirmed');
   };
 
-  const generateTelegramMessage = () => {
-    return generateWhatsAppMessage();
+  const generateDetailedMessage = () => {
+    const amount = parseFloat(brlAmount) || 0;
+    const crypto = parseFloat(cryptoAmount) || 0;
+    const timestamp = new Date().toLocaleString('pt-BR');
+    
+    return `*COMPROVANTE DE PAGAMENTO - NexTrustX*%0A%0A` +
+           `📅 *Data/Hora:* ${timestamp}%0A` +
+           `💰 *Valor Pago:* R$ ${amount.toFixed(2)}%0A` +
+           `₿ *Crypto a Receber:* ${crypto.toFixed(8)} ${selectedCrypto}%0A` +
+           `💳 *Método:* PIX via link de pagamento%0A` +
+           `📍 *Carteira Destino:* ${walletAddress}%0A` +
+           `📊 *Cotação Utilizada:* ${formatPrice(currentCrypto?.price || 0)}%0A%0A` +
+           `🔔 *Status:* Pagamento realizado, aguardando liberação das criptomoedas.%0A%0A` +
+           `Por favor, confirmar o processamento e enviar as criptomoedas para o endereço informado.%0A%0A` +
+           `*ID da Transação:* ${Date.now()}`;
   };
 
   const openWhatsApp = () => {
-    const message = encodeURIComponent(generateWhatsAppMessage());
+    const message = encodeURIComponent(generateDetailedMessage());
     window.open(`https://wa.me/5516988142848?text=${message}`, '_blank');
   };
 
   const openTelegram = () => {
-    const message = encodeURIComponent(generateTelegramMessage());
+    const message = encodeURIComponent(generateDetailedMessage());
     window.open(`https://t.me/NexTrustX?text=${message}`, '_blank');
   };
 
@@ -228,8 +244,9 @@ export default function ComprarPage() {
               {transactionStatus === 'idle' && (
                 <Button 
                   onClick={handleBuy}
-                  disabled={!brlAmount || !walletAddress || parseFloat(brlAmount) < 50}
-                  className="btn-neon bg-neon-green text-black hover:bg-green-400 w-full font-semibold"
+                  disabled={!brlAmount || !walletAddress || parseFloat(brlAmount) < 10}
+                  className="btn-green-enhanced w-full font-semibold"
+                  size="lg"
                 >
                   Comprar Agora
                 </Button>
@@ -259,42 +276,112 @@ export default function ComprarPage() {
                         {formatPrice(parseFloat(brlAmount) || 0)}
                       </div>
                       <Badge variant="outline" className="text-neon-green border-neon-green">
-                        Pagamento Pendente
+                        {paymentCompleted ? 'Pagamento Concluído' : 'Pagamento Pendente'}
                       </Badge>
                     </div>
 
-                    <div className="glass border-white/10 rounded-lg p-4">
-                      <div className="space-y-3">
-                        <div>
-                          <Label className="text-sm text-gray-400">Chave PIX</Label>
-                          <div className="flex items-center space-x-2 mt-1">
-                            <Input
-                              value="pix.p2p@nextrustx.org"
-                              readOnly
-                              className="glass border-white/10 text-white flex-1"
-                            />
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={copyToClipboard}
-                              className="btn-neon border-neon-cyan text-neon-cyan"
-                            >
-                              {copied ? <CheckCircle className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                            </Button>
+                    {!paymentCompleted ? (
+                      <div className="space-y-4">
+                        <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                          <div className="flex items-start space-x-2">
+                            <AlertCircle className="h-5 w-5 text-blue-500 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-blue-500 font-medium mb-2">Instruções de Pagamento</div>
+                              <div className="text-sm text-gray-300 mb-3">
+                                Uma nova aba foi aberta com a página de pagamento PIX. 
+                                Complete o pagamento nessa página e depois clique no botão abaixo.
+                              </div>
+                              <Button
+                                onClick={() => {
+                                  const paymentUrl = `https://pix.nextrustx.com.br/pagar?projeto=NexTrustX&valor=${brlAmount}`;
+                                  window.open(paymentUrl, '_blank');
+                                }}
+                                className="btn-cyan-enhanced w-full font-semibold"
+                                size="sm"
+                              >
+                                <QrCode className="h-4 w-4 mr-2" />
+                                    Abrir Página de Pagamento Novamente
+                              </Button>
+                            </div>
                           </div>
                         </div>
 
-                        <div>
-                          <Label className="text-sm text-gray-400">Nome</Label>
-                          <div className="text-white">NexTrustX Serviços Digitais</div>
-                        </div>
-
-                        <div>
-                          <Label className="text-sm text-gray-400">CPF/CNPJ</Label>
-                          <div className="text-white">59.326.683/0001-14</div>
+                        <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                          <div className="flex items-start space-x-2">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-green-500 font-medium mb-2">Já realizou o pagamento?</div>
+                              <div className="text-sm text-gray-300 mb-3">
+                                Clique no botão abaixo para confirmar o pagamento e enviar o comprovante.
+                              </div>
+                              <Button
+                                onClick={handlePaymentCompleted}
+                                className="btn-green-enhanced w-full font-semibold"
+                                size="sm"
+                              >
+                                <CheckCircle className="h-4 w-4 mr-2" />
+                                Confirmar Pagamento Realizado
+                              </Button>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                          <div className="flex items-start space-x-2">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
+                            <div className="flex-1">
+                              <div className="text-green-500 font-medium mb-2">Pagamento Confirmado!</div>
+                              <div className="text-sm text-gray-300 mb-3">
+                                Ótimo! Seu pagamento foi registrado. Envie as informações detalhadas 
+                                para nosso WhatsApp ou Telegram para acelerar o processamento.
+                              </div>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <Button
+                                  onClick={openWhatsApp}
+                                  className="btn-green-enhanced font-semibold"
+                                  size="sm"
+                                >
+                                  <MessageCircle className="h-4 w-4 mr-2" />
+                                  WhatsApp
+                                </Button>
+                                <Button
+                                  onClick={openTelegram}
+                                  className="btn-cyan-enhanced font-semibold"
+                                  size="sm"
+                                >
+                                  <Send className="h-4 w-4 mr-2" />
+                                  Telegram
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="glass border-white/10 rounded-lg p-4">
+                          <h4 className="text-white font-semibold mb-3">Resumo da Operação</h4>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-gray-400">Valor Pago:</span>
+                              <span className="text-white font-medium">{formatPrice(parseFloat(brlAmount) || 0)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-400">Crypto a Receber:</span>
+                              <span className="text-white font-medium">{cryptoAmount} {selectedCrypto}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-400">Carteira Destino:</span>
+                              <span className="text-white font-medium text-xs truncate ml-2">{walletAddress}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-400">Cotação:</span>
+                              <span className="text-white font-medium">{formatPrice(currentCrypto?.price || 0)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="space-y-3">
                       <h3 className="font-semibold text-white">Status da Transação</h3>
@@ -303,7 +390,7 @@ export default function ComprarPage() {
                           <div
                             key={status.status}
                             className={`flex items-center space-x-3 p-3 rounded-lg glass border-white/10 ${
-                              currentStatus?.status === status.status ? 'border-neon-green' : ''
+                              (paymentCompleted ? 'sent' : 'waiting') === status.status ? 'border-neon-green' : ''
                             }`}
                           >
                             <div className={status.color}>
@@ -312,41 +399,11 @@ export default function ComprarPage() {
                             <div>
                               <div className="text-white font-medium">{status.message}</div>
                               <div className="text-sm text-gray-400">
-                                {currentStatus?.status === status.status ? 'Em andamento' : 'Aguardando'}
+                                {(paymentCompleted ? 'sent' : 'waiting') === status.status ? 'Em andamento' : 'Aguardando'}
                               </div>
                             </div>
                           </div>
                         ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4">
-                      <div className="flex items-start space-x-2">
-                        <AlertCircle className="h-5 w-5 text-yellow-500 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="text-yellow-500 font-medium">Importante</div>
-                          <div className="text-sm text-gray-300 mb-3">
-                            Após o pagamento, envie o comprovante para nosso WhatsApp ou Telegram para acelerar o processo.
-                          </div>
-                          <div className="flex flex-col sm:flex-row gap-2">
-                            <Button
-                              onClick={openWhatsApp}
-                              className="btn-neon bg-green-500 text-white hover:bg-green-600 flex-1"
-                              size="sm"
-                            >
-                              <MessageCircle className="h-4 w-4 mr-2" />
-                              WhatsApp
-                            </Button>
-                            <Button
-                              onClick={openTelegram}
-                              className="btn-neon bg-blue-500 text-white hover:bg-blue-600 flex-1"
-                              size="sm"
-                            >
-                              <Send className="h-4 w-4 mr-2" />
-                              Telegram
-                            </Button>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>

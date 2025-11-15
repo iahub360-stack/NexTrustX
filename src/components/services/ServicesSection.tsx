@@ -32,7 +32,10 @@ interface Service {
   features: string[];
   badge?: string;
   popular?: boolean;
-  href: string;
+  detailedDescription?: string;
+  benefits?: string[];
+  pricing?: string;
+  deliveryTime?: string;
 }
 
 const services: Service[] = [
@@ -48,9 +51,18 @@ const services: Service[] = [
       'Zero taxas de anuidade',
       'Cashback em compras'
     ],
+    detailedDescription: 'Nossos cartões virtuais são a solução perfeita para converter suas criptomoedas em poder de compra global. Carregue com BTC, ETH ou USDT e use em qualquer estabelecimento que aceite Visa ou Mastercard.',
+    benefits: [
+      'Aprovação imediata sem consulta SPC/Serasa',
+      'Limite flexível baseado no seu saldo crypto',
+      'Controle total pelo app',
+      'Bloqueio instantâneo em caso de perda',
+      'Extrato detalhado em tempo real'
+    ],
+    pricing: 'Taxa única de emissão: R$ 100 | Recarga: 3% | Anuidade: R$ 0',
+    deliveryTime: 'Emissão imediata após confirmação de pagamento',
     badge: 'Popular',
-    popular: true,
-    href: '/servicos/cartoes-virtuais'
+    popular: true
   },
   {
     id: 'forex-crypto',
@@ -64,8 +76,17 @@ const services: Service[] = [
       'Taxas de 0.5%',
       'Suporte 24/7 em português'
     ],
-    badge: 'Novo',
-    href: '/servicos/crypto-euro'
+    detailedDescription: 'Acesso direto ao mercado europeu de criptomoedas com as melhores taxas. Ideal para quem precisa movimentar fundos entre Brasil e Europa.',
+    benefits: [
+      'Sem limites diários',
+      'Câmbio justo e transparente',
+      'Integração com bancos europeus',
+      'Relatórios fiscais automáticos',
+      'Suporte especializado em legislação UE'
+    ],
+    pricing: 'Taxa de negociação e Mínimo: Valores a negociar',
+    deliveryTime: 'Processamento em até 30 minutos',
+    badge: 'Novo'
   },
   {
     id: 'forex-fiat',
@@ -79,7 +100,16 @@ const services: Service[] = [
       'Cotação em tempo real',
       'Sem limites mensais'
     ],
-    href: '/servicos/cambio-fiat'
+    detailedDescription: 'Serviço especializado de câmbio para quem precisa converter entre diferentes moedas fiduciárias com agilidade e segurança.',
+    benefits: [
+      'Taxas até 80% menores que bancos',
+      'Rastreamento online da transferência',
+      'Suporte para empresas e PF',
+      'Documentação simplificada',
+      'Cancelamento gratuito até 1h'
+    ],
+    pricing: 'Taxa de negociação e Mínimo: Valores a negociar',
+    deliveryTime: '2 horas úteis para valores até $10.000',
   },
   {
     id: 'secure-wallets',
@@ -93,8 +123,17 @@ const services: Service[] = [
       'Multisig 2FA',
       'Transações privadas (Monero)'
     ],
-    badge: 'Premium',
-    href: '/servicos/wallets-seguras'
+    detailedDescription: 'Proteção máxima para seus ativos digitais com tecnologia de ponta e privacidade garantida por encriptação quântica.',
+    benefits: [
+      'Recuperação segura de acesso',
+      'Herança digital programada',
+      'Transações não rastreáveis',
+      'Proteção contra ataques',
+      'Suporte técnico vitalício'
+    ],
+    pricing: 'Setup: R$ 200 | Mensalidade: R$ 29 | Empresas: R$ 199/mês',
+    deliveryTime: 'Configuração em 24 horas',
+    badge: 'Premium'
   },
   {
     id: 'escrow-services',
@@ -108,7 +147,16 @@ const services: Service[] = [
       'Taxa de 1% do valor',
       'Suporte jurídico'
     ],
-    href: '/servicos/escrow-services'
+    detailedDescription: 'Intermediação segura para transações P2P de alto valor. Protegemos ambos os lados com contratos inteligentes e suporte jurídico.',
+    benefits: [
+      'Contratos inteligentes automatizados',
+      'Mediação profissional de disputas',
+      'Seguro contra fraudes',
+      'Assessoria legal incluída',
+      'Reputação e histórico transparente'
+    ],
+    pricing: 'Taxa: 3% do valor | Mínimo: R$ 1.000 | Sem máximo',
+    deliveryTime: 'Setup imediato | Duração: combinada entre partes',
   },
   {
     id: 'real-estate',
@@ -122,8 +170,17 @@ const services: Service[] = [
       'Avaliação online',
       'Registro blockchain'
     ],
-    badge: 'Exclusivo',
-    href: '/servicos/imoveis-veiculos'
+    detailedDescription: 'Transforme suas criptomoedas em patrimônio real. Compre veículos e imóveis usando crypto com total segurança e respaldo legal.',
+    benefits: [
+      'Economia de até 15% em taxas',
+      'Processo 100% digital',
+      'Avaliação gratuita do imóvel',
+      'Financiamento em crypto',
+      'Registro imutável na blockchain'
+    ],
+    pricing: 'Preços a negociar',
+    deliveryTime: '30-45 dias para conclusão',
+    badge: 'Exclusivo'
   }
 ];
 
@@ -131,13 +188,17 @@ export function ServicesSection() {
   const [expandedService, setExpandedService] = useState<string | null>(null);
   const [hoveredService, setHoveredService] = useState<string | null>(null);
 
-  const handleWhatsApp = () => {
-    const message = encodeURIComponent('Olá! Tenho interesse nos serviços personalizados NexTrustX. Podem me ajudar?');
+  const handleWhatsApp = (serviceTitle?: string) => {
+    const message = serviceTitle 
+      ? encodeURIComponent(`Olá! Tenho interesse no serviço "${serviceTitle}" da NexTrustX. Podem me fornecer mais informações?`)
+      : encodeURIComponent('Olá! Tenho interesse nos serviços personalizados NexTrustX. Podem me ajudar?');
     window.open(`https://wa.me/5516988142848?text=${message}`, '_blank');
   };
 
-  const handleTelegram = () => {
-    const message = encodeURIComponent('Olá! Tenho interesse nos serviços personalizados NexTrustX. Podem me ajudar?');
+  const handleTelegram = (serviceTitle?: string) => {
+    const message = serviceTitle 
+      ? encodeURIComponent(`Olá! Tenho interesse no serviço "${serviceTitle}" da NexTrustX. Podem me fornecer mais informações?`)
+      : encodeURIComponent('Olá! Tenho interesse nos serviços personalizados NexTrustX. Podem me ajudar?');
     window.open(`https://t.me/NexTrustX?text=${message}`, '_blank');
   };
 
@@ -212,7 +273,7 @@ export function ServicesSection() {
                 </CardHeader>
 
                 <CardContent className="pt-0">
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {/* Features Preview */}
                     <div className="space-y-2">
                       {expandedService === service.id ? (
@@ -262,24 +323,80 @@ export function ServicesSection() {
                       }`} />
                     </Button>
 
-                    {/* CTA Button when expanded */}
+                    {/* Detailed Information when expanded */}
                     {expandedService === service.id && (
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
+                        className="space-y-4 pt-4 border-t border-white/10"
                       >
-                        <Link href={service.href}>
-                          <Button 
-                            className="w-full btn-neon bg-neon-green text-black hover:bg-green-400 font-semibold"
-                          onClick={handleWhatsApp}
-                          asChild
-                          size="lg"
-                          >
-                            <MessageCircle className="h-5 w-5 mr-2" />
-                            Solicitar Este Serviço
-                          </Button>
-                        </Link>
+                        {/* Detailed Description */}
+                        {service.detailedDescription && (
+                          <div>
+                            <h4 className="text-white font-semibold mb-2">Descrição Completa</h4>
+                            <p className="text-sm text-gray-300 leading-relaxed">
+                              {service.detailedDescription}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Benefits */}
+                        {service.benefits && service.benefits.length > 0 && (
+                          <div>
+                            <h4 className="text-white font-semibold mb-2">Benefícios Exclusivos</h4>
+                            <div className="space-y-1">
+                              {service.benefits.map((benefit, idx) => (
+                                <div key={idx} className="flex items-center space-x-2 text-sm text-gray-300">
+                                  <div className="w-2 h-2 bg-neon-green rounded-full flex-shrink-0" />
+                                  <span>{benefit}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Pricing and Delivery */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {service.pricing && (
+                            <div>
+                              <h4 className="text-white font-semibold mb-2">Preços</h4>
+                              <p className="text-sm text-gray-300">{service.pricing}</p>
+                            </div>
+                          )}
+                          {service.deliveryTime && (
+                            <div>
+                              <h4 className="text-white font-semibold mb-2">Prazo de Entrega</h4>
+                              <p className="text-sm text-gray-300">{service.deliveryTime}</p>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Contact Buttons */}
+                        <div className="space-y-2 pt-4 border-t border-white/10">
+                          <p className="text-sm text-gray-400 text-center mb-3">
+                            Solicite este serviço diretamente com nossos especialistas:
+                          </p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <Button
+                              onClick={() => handleWhatsApp(service.title)}
+                              className="btn-green-enhanced font-semibold"
+                              size="sm"
+                            >
+                              <MessageCircle className="h-4 w-4 mr-2" />
+                              WhatsApp
+                            </Button>
+                            <Button
+                              onClick={() => handleTelegram(service.title)}
+                              variant="outline"
+                              className="btn-cyan-enhanced font-semibold"
+                              size="sm"
+                            >
+                              <Send className="h-4 w-4 mr-2" />
+                              Telegram
+                            </Button>
+                          </div>
+                        </div>
                       </motion.div>
                     )}
                   </div>
@@ -309,13 +426,13 @@ export function ServicesSection() {
           
           <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
             Nossa equipe especializada está pronta para ajudar você a escolher o serviço ideal. 
-            Atendimento personalizado em português via WhatsApp e Telegram.
+            Atendimento personalizado em português, francês, inglês e espanhol via WhatsApp e Telegram.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
               onClick={handleWhatsApp}
-              className="btn-neon bg-green-500 text-white hover:bg-green-600 font-semibold px-8 py-3"
+              className="btn-green-enhanced font-semibold px-8 py-3"
               size="lg"
             >
               <MessageCircle className="h-5 w-5 mr-2" />
@@ -325,7 +442,7 @@ export function ServicesSection() {
             <Button 
               onClick={handleTelegram}
               variant="outline"
-              className="btn-neon border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-semibold px-8 py-3"
+              className="btn-cyan-enhanced font-semibold px-8 py-3"
               size="lg"
             >
               <Send className="h-5 w-5 mr-2" />

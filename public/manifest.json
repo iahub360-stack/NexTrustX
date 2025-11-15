@@ -1,9 +1,13 @@
 {
   "name": "NexTrustX - Crypto P2P Brasil",
   "short_name": "NexTrustX",
-  "description": "Compre e venda criptomoedas via PIX sem KYC. Bitcoin, Ethereum, USDT com cotação em tempo real.",
+  "description": "Compre e venda criptomoedas via PIX sem KYC. Bitcoin, Ethereum, USDT com cotação em tempo real. Rápido, seguro e fácil.",
   "start_url": "/",
   "display": "standalone",
+  "display_override": {
+    "standalone": "window-controls-overlay",
+    "minimal-ui": "standalone"
+  },
   "background_color": "#000000",
   "theme_color": "#86efac",
   "orientation": "portrait-primary",
@@ -74,6 +78,30 @@
       ]
     },
     {
+      "name": "Comprar Ethereum",
+      "short_name": "Comprar ETH",
+      "description": "Comprar Ethereum via PIX",
+      "url": "/comprar?crypto=ETH",
+      "icons": [
+        {
+          "src": "/icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Comprar USDT",
+      "short_name": "Comprar USDT",
+      "description": "Comprar USDT via PIX",
+      "url": "/comprar?crypto=USDT",
+      "icons": [
+        {
+          "src": "/icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
       "name": "Vender Cripto",
       "short_name": "Vender",
       "description": "Vender criptomoedas via PIX",
@@ -91,18 +119,29 @@
       "src": "/screenshot-mobile.png",
       "sizes": "390x844",
       "type": "image/png",
-      "form_factor": "narrow"
+      "form_factor": "narrow",
+      "label": "Tela mobile - Compre Bitcoin facilmente"
     },
     {
       "src": "/screenshot-desktop.png",
       "sizes": "1280x720",
       "type": "image/png",
-      "form_factor": "wide"
+      "form_factor": "wide",
+      "label": "Tela desktop - Plataforma completa"
     }
   ],
   "related_applications": [],
   "prefer_related_applications": false,
   "edge_side_panel": {
     "preferred_width": 400
-  }
+  },
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "focus-existing"]
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+nextrustx",
+      "url": "/?handler=%s"
+    }
+  ]
 }

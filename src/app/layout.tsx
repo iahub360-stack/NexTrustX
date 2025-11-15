@@ -18,11 +18,28 @@ export const metadata: Metadata = {
     "NexTrustX", "P2P crypto Brasil", "comprar Bitcoin PIX", "vender cripto PIX", 
     "Bitcoin sem KYC", "Ethereum Brasil", "USDT TRC20", "PIX cripto", 
     "exchange P2P", "crypto instantâneo", "comprar BTC", "vender ETH", 
-    "criptomoedas Brasil", "PIX Bitcoin", "sem documento crypto", "trade P2P"
+    "criptomoedas Brasil", "PIX Bitcoin", "sem documento crypto", "trade P2P",
+    "crypto app", "Bitcoin mobile", "Ethereum mobile", "USDT mobile"
   ],
   authors: [{ name: "NexTrustX Team", url: "https://nextrustx.org" }],
   creator: "NexTrustX",
   publisher: "NexTrustX",
+  category: "finance",
+  classification: "finance",
+  referrer: "no-referrer-when-downgrade",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  viewport: {
+    width: "device-width",
+    height: "device-height",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+    viewportFit: "cover",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -91,7 +108,7 @@ export const metadata: Metadata = {
     yandex: "your-yandex-verification-code",
   },
   other: {
-    "msapplication-TileColor": "#000000",
+    "msapplication-TileColor": "#86efac",
     "msapplication-config": "/browserconfig.xml"
   }
 };
